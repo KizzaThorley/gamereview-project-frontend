@@ -8,6 +8,7 @@ import New from './components/New'
 import MyGames from './components/MyGames'
 import Edit from './components/Edit'
 import AllGames from './components/AllGames'
+import { ToastContainer } from 'react-toastify'
 
 function App() {
 
