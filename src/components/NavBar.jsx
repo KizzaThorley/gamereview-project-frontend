@@ -21,12 +21,15 @@ function logout() {
       <Link to="/" className='relative inline-flex items-center 
     justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 
     hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white'>Home</Link>
-        <Link to="/signup" className='relative inline-flex items-center 
+    {!isLoggedIn && <Link to="/signup" className='relative inline-flex items-center 
     justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 
-    hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white'>Sign Up</Link>
-       <Link to="/login" className='relative inline-flex items-center 
+    hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white'>Sign Up</Link>}
+    {!isLoggedIn && <Link to="/login" className='relative inline-flex items-center 
     justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 
-    hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white'>Login</Link>
+    hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white'>Login</Link>}
+    {isLoggedIn && <Link to="/new-game" className='relative inline-flex items-center 
+    justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 
+    hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white'>Add a game</Link>}
     {isLoggedIn && <button className='relative inline-flex items-center 
     justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 
     hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white' 
