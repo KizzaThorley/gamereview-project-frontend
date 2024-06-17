@@ -1,6 +1,5 @@
 import React from 'react'
 import axios from 'axios'
-import { toast } from "react-toastify"
 import { useNavigate } from 'react-router-dom'
 
 export default function New() {
@@ -8,17 +7,11 @@ export default function New() {
   async function onFormSubmit(e) {
     e.preventDefault()
     try {
-      await axios.post('/api/signup', formData)
+      await axios.post('/api/games', formData)
 
-      navigate('/login')
+      navigate('/my-games')
     } catch (error) {
-      if (error.response.data) {
-        toast(error.response.data.username);
-      } else if (error.response.data.email) {
-        toast(error.response.data.email);
-      } else {
-        toast(error.response.data.message);
-      }
+      console.log(error)
     }
   }
 
