@@ -29,11 +29,11 @@ export default function Signup() {
         } catch (error) {
             if (error.response.data) 
                 {
-                toast(error.response.data.username);
+                console.log(error.response.data.username);
             } else if (error.response.data.email) {
-                toast(error.response.data.email);
+                console.log(error.response.data.email);
             } else {
-                toast(error.response.data.message);
+                console.log(error.response.data.message);
             }
         }
     }
