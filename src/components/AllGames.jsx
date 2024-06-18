@@ -23,18 +23,22 @@ export default function AllGames() {
 
   return (
     <>
-    <div id=''>
+   
       <h1>All Games</h1>
+      <div className='flex flex-wrap items-center gap-5 justify-center py-12 mx-auto max-w-7xl px-2 sm:px-6 lg:px-8
+      '>
       {allGames.map((game, index) => 
         <GameCard key={index} 
         name={game.name}
         imageUrl={game.imageUrl}
         genres={game.genres}
         year={game.year}
+        gameId={game._id}
         />
       )}
+      </div>
 
-    </div>
+  
     </>
   )
 }

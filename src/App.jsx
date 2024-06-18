@@ -8,6 +8,7 @@ import New from './components/New'
 import MyGames from './components/MyGames'
 import Edit from './components/Edit'
 import AllGames from './components/AllGames'
+import SingleGame from './components/SingleGame'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -39,6 +40,7 @@ function App() {
       <Route path='/my-games' element={<MyGames />} />
       <Route path='/my-games/edit' element={<Edit />} />
       <Route path='/all-games' element={<AllGames />} />
+      <Route path='/game/:gameId' element={<SingleGame />} />
     </Routes>
 
   </Router>
