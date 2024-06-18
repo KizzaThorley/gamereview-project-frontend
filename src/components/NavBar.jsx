@@ -17,7 +17,7 @@ function logout() {
 
   return (
     <div className='bg-emerald-800'>
-      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8" >
+      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 flex justify-between" >
       <Link to="/" className='relative inline-flex items-center 
     justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 
     hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white'>Home</Link>
@@ -37,6 +37,9 @@ function logout() {
     justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 
     hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white' 
     onClick={logout}>Sign Out</button>}
+     {isLoggedIn && <Link to="/my-games" className='relative inline-flex items-center 
+    justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 
+    hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white'>My games</Link>}
       </div>
     </div>
   )
