@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify'
+import { Slide, toast } from 'react-toastify'
 
 
 export default function Login() {
@@ -33,7 +33,10 @@ export default function Login() {
 
       navigate('/')
     } catch (error) {
-      toast(error.response.data.message);
+      toast.error(error.response.data.message, {
+        autoClose: 2500,
+        transition: Slide
+        })
     }
 
 

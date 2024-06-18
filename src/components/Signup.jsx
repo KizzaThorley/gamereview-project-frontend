@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify'
+import { Slide, toast } from 'react-toastify'
 
 export default function Signup() {
 
@@ -27,13 +27,21 @@ export default function Signup() {
 
             navigate('/login')
         } catch (error) {
-            if (error.response.data) 
-                {
-                console.log(error.response.data.username);
+            if (error.response.data.username) {
+                toast.error(error.response.data.username, {
+                    autoClose: 3000,
+                    transition: Slide
+                });
             } else if (error.response.data.email) {
-                console.log(error.response.data.email);
+                toast.error(error.response.data.email, {
+                    autoClose: 3000,
+                    transition: Slide
+                });
             } else {
-                console.log(error.response.data.message);
+                toast.error(error.response.data.message, {
+                    autoClose: 3000,
+                    transition: Slide
+                });
             }
         }
     }
