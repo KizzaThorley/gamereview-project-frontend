@@ -2,6 +2,9 @@
 
 export default function AllGames() {
   return (
-    <div>AllGames</div>
+    <div>
+      <h1>All Games</h1>
+      
+    </div>
   )
 }
