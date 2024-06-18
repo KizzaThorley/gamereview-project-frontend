@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from "axios"
+import GameCard from './GameCard'
 
 export default function AllGames() {
 
@@ -21,14 +22,19 @@ export default function AllGames() {
 
 
   return (
-    <div>
+    <>
+    <div id=''>
       <h1>All Games</h1>
       {allGames.map((game, index) => 
-        <div key={index}>
-          <h4>{game.name}</h4>
-        </div>
+        <GameCard key={index} 
+        name={game.name}
+        imageUrl={game.imageUrl}
+        genres={game.genres}
+        year={game.year}
+        />
       )}
 
     </div>
+    </>
   )
 }
