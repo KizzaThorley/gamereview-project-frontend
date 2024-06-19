@@ -6,6 +6,7 @@ import { toast } from 'react-toastify'
 export default function SingleGame({ isLoggedIn }) {
   const { gameId } = useParams()
   const [game, setGame] = React.useState(null)
+  const [rating, setRating] = React.useState(0)
 
   async function getGame() {
     try {
@@ -23,12 +24,16 @@ export default function SingleGame({ isLoggedIn }) {
   }, [])
 
   function changeRating(event) {
+    for (let i = 5; i > 0; i--) {
+      const button = document.getElementById(i)
+      button.classList.add("opacity-40")
+    }
+    setRating(event.target.id)
     for (let i = event.target.id; i > 0; i--) {
-      console.log(event.target)
+      const button = document.getElementById(i)
+      button.classList.remove("opacity-40")
     }
   }
-
-  console.log(game)
 
   return (
     <>
