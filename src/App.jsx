@@ -20,6 +20,7 @@ function App() {
 
 
 
+
   return <Router>
     <NavBar 
     isLoggedIn={isLoggedIn}
@@ -49,7 +50,7 @@ function App() {
       />} />
       <Route path='/new-game' element={<New />} />
       <Route path='/my-games' element={<MyGames />} />
-      <Route path='/my-games/edit' element={<Edit />} />
+      <Route path='/my-games/edit/:gameId' element={<Edit />} />
       <Route path='/all-games' element={<AllGames />} />
       <Route path='/game/:gameId' element={<SingleGame />} />
     </Routes>
