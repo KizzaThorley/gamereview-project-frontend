@@ -25,7 +25,7 @@ export default function AllGames() {
     <>
    
       <h1 className='text-center font-bold text-5xl mt-4'>All Games</h1>
-      <div className='flex flex-wrap items-center gap-5 justify-center py-12 mx-auto max-w-7xl px-2 sm:px-6 lg:px-8'>
+      {allGames.length > 0 ? <div className='flex flex-wrap items-center gap-5 justify-center py-12 mx-auto max-w-7xl px-2 sm:px-6 lg:px-8'>
       {allGames.map((game, index) => 
         <GameCard key={index} 
         name={game.name}
@@ -36,6 +36,8 @@ export default function AllGames() {
         />
       )}
       </div>
+      : <h1 className='text-center font-bold text-7xl mt-8'>Loading...</h1>
+      }
 
   
     </>
