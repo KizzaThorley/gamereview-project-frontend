@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { Slide, toast } from 'react-toastify'
 
 
-export default function Login() {
+export default function Login( { setIsLoggedIn }) {
 
   const navigate = useNavigate()
 
@@ -29,6 +29,7 @@ export default function Login() {
 
       localStorage.setItem('token', token)
 
+      setIsLoggedIn(localStorage.getItem('token'))
       console.log('login successful');
 
       navigate('/')
