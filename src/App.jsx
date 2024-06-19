@@ -52,7 +52,9 @@ function App() {
       <Route path='/my-games' element={<MyGames />} />
       <Route path='/my-games/edit/:gameId' element={<Edit />} />
       <Route path='/all-games' element={<AllGames />} />
-      <Route path='/game/:gameId' element={<SingleGame />} />
+      <Route path='/game/:gameId' element={<SingleGame 
+      isLoggedIn={isLoggedIn}
+      />} />
     </Routes>
 
   </Router>
