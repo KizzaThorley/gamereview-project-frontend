@@ -2,6 +2,8 @@ import React from 'react'
 import axios from 'axios'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { Slide, toast } from 'react-toastify'
+import ReviewCard from './ReviewCard'
+import EditReview from './EditReview'
 
 export default function SingleGame({ isLoggedIn }) {
   const { gameId } = useParams()
@@ -23,10 +25,9 @@ export default function SingleGame({ isLoggedIn }) {
 
   async function getGame() {
     try {
-
       const { data } = await axios.get(`/api/games/${gameId}`)
-      return setGame(data)
-
+      console.log(data)
+      setGame(data)
     } catch (error) {
       toast.error(error)
     }
@@ -34,6 +35,7 @@ export default function SingleGame({ isLoggedIn }) {
 
   React.useEffect(() => {
     getGame()
+    reviewUserIDs()
   }, [])
 
   function changeRating(event) {
@@ -63,100 +65,134 @@ export default function SingleGame({ isLoggedIn }) {
       const { data } = await axios.post(`/api/games/${gameId}/reviews`, review, {
         headers: { Authorization: `Bearer ${token}` }
       })
-
-      return setGame(data)
-
+      setGame(data)
     } catch (error) {
-
       toast.error(error.response.data.message, {
         autoClose: 3000,
         transition: Slide
       })
-
     }
+  }
+
+  async function reviewUserIDs() {
+    await game?.reviews.map((review) => {
+       return review.addedBy
+    })
   }
 
 
 
+  function searchReviews() {
+    return game.reviews.filter((review) => {
+      return (user._id === review.addedBy)
+    })
+  }
+
+  // const hasReviewed = searchReviews()
+
   return (
     <>
-      {!game ? <h1 className='text-left font-bold text-5xl mt-5 ml-5'>Loading...</h1> :
+      {!game ? (
+        <h1 className='text-left font-bold text-5xl mt-5 ml-5'>Loading...</h1>
+      ) : (
         <>
           <div className='object-center w-fit bg-green-100 m-5 p-5 rounded-xl border-4 border-green-900'>
             <h1 className='text-left font-bold text-5xl mb-5 uppercase'>{game.name} ({game.year})</h1>
             <div className="object-center flex justify-center">
-              {game.imageUrl && <img src={game.imageUrl} className='min-w-96 max-w-3xl border-teal-900 rounded-xl border-2 mb-2' />}
+              {game.imageUrl && (
+                <img src={game.imageUrl} className='min-w-96 max-w-3xl border-teal-900 rounded-xl border-2 mb-2' />
+              )}
             </div>
-            <p className='capitalize text-xl'><span className='font-bold'>Genres: </span>{game.genres.map((genre, index) => {
-              return (index === game.genres.length - 1) ? <span key={index}>{genre.name}</span> : <span key={index}>{genre.name}, </span>
-            }
-            )}
+            <p className='capitalize text-xl'>
+              <span className='font-bold'>Genres: </span>
+              {game.genres.map((genre, index) => (
+                index === game.genres.length - 1 ? (
+                  <span key={index}>{genre.name}</span>
+                ) : (
+                  <span key={index}>{genre.name}, </span>
+                )
+              ))}
             </p>
           </div>
-          <div className='object-center w-fit bg-teal-100 m-5 p-5 rounded-xl border-4 border-teal-800'>
+          <div className='object-center w-fit bg-teal-100 m-5 p-5 rounded-xl border-4 border-teal-800 flex-col'>
             <h1 className="text-left font-bold text-5xl mb-5">Reviews</h1>
-            {game.reviews.length > 0
-              ?
+            {game.reviews.length > 0 ? (
               <>
                 {game.reviews.map((review, index) => {
-                    const stars = []
-                  {
-                    for (let i = 0; i < review.rating; i++) {
-                      stars.push("⭐")
-                    }
+                  const stars = []
+                  for (let i = 0; i < review.rating; i++) {
+                    stars.push("⭐")
                   }
-                  return <div key={index}>
-                    <div className='flex flex-row'>
-                      {stars.map((star) => <p key={index}>{star}</p>)}
+                  return (
+                    <div key={index}>
+                      {user && user._id === review.addedBy ? (
+                        <>
+                          {!editMode && <div className='flex flex-row'>
+                            {stars.map((star, index) => <p key={"star" + index}>{star}</p>)}
+                          </div>}
+                          {!editMode && <p>{review.review}</p>}
+                          <div className='flex flex-column justify-between mr-8 mb-6'>
+                            <>
+                              <div>
+                                {editMode && (
+                                  <EditReview
+                                    isLoggedIn={isLoggedIn}
+                                    postReview={postReview}
+                                    changeRating={changeRating}
+                                    handleChange={handleChange}
+                                    review={review}
+                                  />
+                                )
+                                }
+                              </div>
+                              <button
+                                className='mt-6 mb-1 border-teal-900 border-2 w-fit py-1 px-3 rounded-lg self-center text-96 bg-teal-400'
+                                onClick={(event) => {
+                                  setEditMode(!editMode)
+                                  event.target.innerHTML = editMode ? "Edit" : "Confirm"
+                                }}
+                              >
+                                Edit
+                              </button>
+                              {!editMode && (
+                                <button className='mt-6 mb-1 border-teal-900 border-2 w-fit py-1 px-3 rounded-lg self-center text-96 bg-teal-400'>
+                                  Delete
+                                </button>
+                              )}
+                            </>
+                          </div>
+                        </>
+                      ) : (
+
+                        <>
+                          <div className='flex flex-row'>
+                            {!editMode && stars.map((star, index) => <p key={"star" + index}>{star}</p>)}
+                          </div>
+                          <p>{!editMode && review.review}</p>
+                        </>
+
+                      )}
                     </div>
-                    <p>{review.review}</p>
-                    <div className='flex flex-row justify-between mr-8'>
-                      {(user && (user._id === review.addedBy)) && <>
-                        <button className='mt-6 mb-1 border-teal-900 border-2 w-fit py-1 px-3 rounded-lg self-center text-96 bg-teal-400' onClick={(event) => {
-                          setEditMode(!editMode)
-                          !editMode ? event.target.innerHTML = "Confirm" : event.target.innerHTML = "Edit"
-                        }
-                        }>
-                          Edit
-                        </button>
-                        <button className='mt-6 mb-1 border-teal-900 border-2 w-fit py-1 px-3 rounded-lg self-center text-96 bg-teal-400'>Delete</button>
-                      </>}
-                    </div>
-                  </div>
-                })
-                }
+                  )
+                })}
               </>
-              : <p>Nobody's written a review for this game yet... fancy being the first?</p>
-            }
+            ) : (
+              <p>Nobody's written a review for this game yet... fancy being the first?</p>
+            )}
           </div>
-          <div className='object-center w-fit bg-blue-100 m-5 p-5 rounded-xl border-4 border-blue-900'>
-            {isLoggedIn
-              ? <>
-                <h1 className='text-left font-bold text-5xl mb-5'>Add a review</h1>
-                <form className='flex flex-col' onSubmit={postReview}>
-                  <div className='mb-5'>
-                    <label htmlFor='rating' className='text-2xl'>Rating: </label>
-                    <input type='button' name='rating' id='1' value=" ⭐" required className='cursor-pointer text-4xl opacity-40' key="1" onClick={changeRating} />
-                    <input type='button' name='rating' id='2' value="⭐" required className='cursor-pointer text-4xl opacity-40' key="2" onClick={changeRating} />
-                    <input type='button' name='rating' id='3' value="⭐" required className='cursor-pointer text-4xl opacity-40' key="3" onClick={changeRating} />
-                    <input type='button' name='rating' id='4' value="⭐" required className='cursor-pointer text-4xl opacity-40' key="4" onClick={changeRating} />
-                    <input type='button' name='rating' id='5' value="⭐" required className='cursor-pointer text-4xl opacity-40' key="5" onClick={changeRating} />
-                  </div>
-                  <label htmlFor='review' className='text-2xl mb-2'>Review: </label>
-                  <textarea name='review' id='review' rows="9" cols="50" onChange={handleChange} className='p-2 border-blue-900 border-2 rounded-xl bg-gray-100' />
-                  <div className='flex justify-center items-center'>
-                    <button className='mt-6 mb-1 border-blue-900 border-4 w-fit py-3 px-6 rounded-lg self-center text-xl bg-blue-400'>Submit</button>
-                  </div>
-                </form>
-              </>
-              : <>
-                <h1 className='text-left font-bold text-5xl mb-5'>Add a re- wait a minute!</h1>
-                <p>You're not signed in... change that <Link to="/login" className='text-blue-600 underline'>here</Link>, or sign up <Link to="/signup" className='text-blue-600 underline'>here</Link>!</p>
-              </>
-            }
-          </div>
+          {/* {(game.reviews.length > 0 && searchReviews()) ? <p>You've already reviewed this.</p>
+            : */}
+            <ReviewCard
+              isLoggedIn={isLoggedIn}
+              postReview={postReview}
+              changeRating={changeRating}
+              handleChange={handleChange}
+
+            />
+          {/* } */}
         </>
-      }
+      )}
     </>
   )
 }
+
