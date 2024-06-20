@@ -16,17 +16,22 @@ export default function SingleGame({ isLoggedIn }) {
     addedBy: ""
   })
 
-  let user = null
+  const  [user , setUser] = React.useState(null)  
 
-  const token = isLoggedIn
-  if (token) {
-    user = JSON.parse(atob(token.split(".")[1]))
+ React.useEffect(() => {
+  if(!isLoggedIn) {
+    return setUser(false)
+  } else {
+    setUser(JSON.parse(atob(isLoggedIn.split(".")[1])))
   }
+ },[isLoggedIn])
+  
+  
 
   async function getGame() {
     try {
       const { data } = await axios.get(`/api/games/${gameId}`)
-      console.log(data)
+      // console.log(data)
       setGame(data)
     } catch (error) {
       toast.error(error)
@@ -63,7 +68,7 @@ export default function SingleGame({ isLoggedIn }) {
     event.preventDefault()
     try {
       const { data } = await axios.post(`/api/games/${gameId}/reviews`, review, {
-        headers: { Authorization: `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${isLoggedIn}` }
       })
       setGame(data)
     } catch (error) {
@@ -83,10 +88,16 @@ export default function SingleGame({ isLoggedIn }) {
 
 
   function searchReviews() {
-    return game.reviews.filter((review) => {
-      return (user._id === review.addedBy)
-    })
-  }
+    if (!user) {
+      return 
+    } else {
+      return game.reviews.some((review) => {
+        if(review.addedBy.includes(user._id.toString())) {
+         return true
+        }
+       })
+    }
+}
 
   // const hasReviewed = searchReviews()
 
@@ -180,8 +191,8 @@ export default function SingleGame({ isLoggedIn }) {
               <p>Nobody's written a review for this game yet... fancy being the first?</p>
             )}
           </div>
-          {/* {(game.reviews.length > 0 && searchReviews()) ? <p>You've already reviewed this.</p>
-            : */}
+          {game.reviews.length > 0 && (searchReviews()) ? <p>You've already reviewed this.</p>
+            :
             <ReviewCard
               isLoggedIn={isLoggedIn}
               postReview={postReview}
@@ -189,7 +200,7 @@ export default function SingleGame({ isLoggedIn }) {
               handleChange={handleChange}
 
             />
-          {/* } */}
+          }
         </>
       )}
     </>
