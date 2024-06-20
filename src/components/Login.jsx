@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { Slide, toast } from 'react-toastify'
 
 
-export default function Login( { setIsLoggedIn }) {
+export default function Login({ setIsLoggedIn }) {
 
   const navigate = useNavigate()
 
@@ -37,7 +37,7 @@ export default function Login( { setIsLoggedIn }) {
       toast.error(error.response.data.message, {
         autoClose: 2500,
         transition: Slide
-        })
+      })
     }
 
 
@@ -48,7 +48,7 @@ export default function Login( { setIsLoggedIn }) {
   return (
     <div>
       <div className='container mx-auto px-4 md:container md:mx-auto'>
-        <h1 className='text-xl font-bold text-red-500'>Login</h1>
+        <h1 className='text-xl font-bold text-red-500 text-center m-4'>Login</h1>
         <form onSubmit={onFormSubmit}>
           <div>
             <label>Email</label>
@@ -79,7 +79,7 @@ export default function Login( { setIsLoggedIn }) {
             </div>
             <div>
               <button className="rounded-md p-2 text-gray-400 bg-blue-700 
-    hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white'">Login</button>
+    hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white text-center m-4 justify-center items-center'">Login</button>
             </div>
           </div>
         </form>

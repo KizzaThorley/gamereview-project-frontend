@@ -75,7 +75,7 @@ console.log(formData);
 
   return (
     <div className='container mx-auto px-4 md:container md:mx-auto'>
-      <h1 className='text-xl font-bold text-red-500'>Add a game</h1>
+      <h1 className='text-xl font-bold text-red-500 text-center m-4'>Add a game</h1>
       <form onSubmit={onFormSubmit}>
         <div>
           <label>Name:</label>
@@ -132,7 +132,7 @@ console.log(formData);
           </div>
         </div>
         <button className="rounded-md p-2 text-gray-400 bg-blue-700 
-    hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">Submit</button>
+    hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white text-center m-4 justify-center items-center">Submit</button>
       </form>
     </div>
   )

@@ -49,8 +49,8 @@ export default function Signup() {
 
 
     return (
-        <div className='container mx-auto px-4 md:container md:mx-auto'>
-            <h1 className='text-xl font-bold text-red-500'>Sign Up</h1>
+        <div className='container mx-auto px-4 md:container md:mx-auto flex-wrap justify-center items-center'>
+            <h1 className='text-xl font-bold text-red-500 text-center m-4'>Sign Up</h1>
             <form onSubmit={onFormSubmit}>
                 <div>
                     <label>Username</label>
@@ -107,7 +107,7 @@ export default function Signup() {
                             required
                         />
                         <button className="rounded-md p-2 text-gray-400 bg-blue-700 
-    hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white'">Submit</button>
+    hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white text-center m-4 justify-center items-center">Submit</button>
                     </div>
                 </div>
             </form>

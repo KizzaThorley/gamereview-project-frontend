@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom'
 export default function GameCard({ name, imageUrl, year, genres, gameId }) {
 
     return (
-        <div className='flex flex-wrap mx-auto w-4/12 px-2 sm:px-6 lg:px-0 just-a-border h-full p-6 text-center items-center justify-center bg-slate-700 rounded-lg h-96'>
+        <div className='flex flex-wrap mx-auto w-4/12 px-2 sm:px-6 lg:px-0 just-a-border h-full p-6 text-center items-center justify-center bg-slate-700 w-96 h-96 rounded-lg aspect-square 
+        '>
             <Link to={`/game/${gameId}`}>
                 <h1 className='mb-3.5 text-xl font-bold uppercase'>{name} ({year})</h1>
                 <div className='flex mx-auto w-fit px-2 sm:px-6 lg:px-0'>
