@@ -191,7 +191,7 @@ export default function SingleGame({ isLoggedIn }) {
               <p>Nobody's written a review for this game yet... fancy being the first?</p>
             )}
           </div>
-          {game.reviews.length > 0 && (searchReviews()) ? <p>You've already reviewed this.</p>
+          {game.reviews.length > 0 && (searchReviews()) ? <p className="text-2xl ml-5 font-bold">You've already reviewed this. Edit it above!</p>
             :
             <ReviewCard
               isLoggedIn={isLoggedIn}
