@@ -58,6 +58,7 @@ fetchMyGames()
             imageUrl={game.imageUrl}
             genres={game.genres}
             year={game.year}
+            gameId={game._id}
             />
           <button onClick={() => handleDelete(game._id)} className='relative  items-center 
     justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 

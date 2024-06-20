@@ -40,7 +40,7 @@ export default function AllGames() {
       setDropDownSearch(e)
   }
 
-  // console.log(allGames)
+  console.log(allGames)
 
   function handleChange(e) {
     setSearchBar(e.target.value)
