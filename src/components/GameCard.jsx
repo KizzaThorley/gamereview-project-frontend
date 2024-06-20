@@ -9,7 +9,7 @@ export default function GameCard({ name, imageUrl, year, genres, gameId }) {
             <Link to={`/game/${gameId}`}>
                 <h1 className='mb-3.5 text-xl font-bold uppercase'>{name} ({year})</h1>
                 <div className='flex mx-auto w-fit px-2 sm:px-6 lg:px-0'>
-                    <img className="size-fit mb-3.5" src={imageUrl} alt={"An image of the game " + name}></img>
+                   {imageUrl ?  <img className="size-fit mb-3.5" src={imageUrl} alt={"An image of the game " + name}></img>: <p>No Image Added Yet</p>} 
                 </div>
                 <div className='mx-auto max-w-7xl px-2 sm:px-6 lg:px-8'>
                     {genres.map((genre, index) => {

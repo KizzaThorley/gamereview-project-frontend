@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.background-img {
+    background-image: url(https://archive.esportsobserver.com/wp-content/uploads/2018/09/28180756609_e91b334327_k.jpg);
+}

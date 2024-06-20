@@ -18,7 +18,7 @@ function logout() {
 }
 
   return (
-    <div className='bg-green-900 shadow p-2'>
+    <div className='bg-gradient-to-r from-orange-500 to-indigo-500 shadow p-2'>
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 flex justify-between pb-1 text-center" >
       <Link to="/" className='relative inline-flex items-center 
     justify-center rounded-md p-2 text-gray-200 hover:bg-gray-700 
