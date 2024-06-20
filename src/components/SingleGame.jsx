@@ -1,17 +1,25 @@
 import React from 'react'
 import axios from 'axios'
-import { useParams, Link } from 'react-router-dom'
-import { toast } from 'react-toastify'
+import { useParams, Link, useNavigate } from 'react-router-dom'
+import { Slide, toast } from 'react-toastify'
 
 export default function SingleGame({ isLoggedIn }) {
   const { gameId } = useParams()
+  const navigate = useNavigate()
   const [game, setGame] = React.useState(null)
-  const [reviewRating, setReviewRating] = React.useState(0)
+  const [editMode, setEditMode] = React.useState(false)
   const [review, setReview] = React.useState({
     review: "",
-    rating: reviewRating,
+    rating: 0,
     addedBy: ""
   })
+
+  let user = null
+
+  const token = isLoggedIn
+  if (token) {
+    user = JSON.parse(atob(token.split(".")[1]))
+  }
 
   async function getGame() {
     try {
@@ -30,8 +38,7 @@ export default function SingleGame({ isLoggedIn }) {
 
   function changeRating(event) {
     const newReview = structuredClone(review)
-    setReviewRating(event.target.id)
-    newReview.rating = Number(reviewRating)
+    newReview.rating = Number(event.target.id)
     setReview(newReview)
 
     for (let i = 5; i > 0; i--) {
@@ -53,19 +60,23 @@ export default function SingleGame({ isLoggedIn }) {
   async function postReview(event) {
     event.preventDefault()
     try {
-      const token = localStorage.getItem("token")
-      const parts = token.split(".")
-      const user = JSON.parse(atob(parts[1]))
+      const { data } = await axios.post(`/api/games/${gameId}/reviews`, review, {
+        headers: { Authorization: `Bearer ${token}` }
+      })
 
-      const newReview = structuredClone(review)
-      newReview.addedBy = user._id
-      setReview(newReview)
+      return setGame(data)
 
-      // await axios.post("")
     } catch (error) {
-      toast.error(error)
+
+      toast.error(error.response.data.message, {
+        autoClose: 3000,
+        transition: Slide
+      })
+
     }
   }
+
+
 
   return (
     <>
@@ -84,47 +95,68 @@ export default function SingleGame({ isLoggedIn }) {
           </div>
           <div className='object-center w-fit bg-teal-100 m-5 p-5 rounded-xl border-4 border-teal-800'>
             <h1 className="text-left font-bold text-5xl mb-5">Reviews</h1>
-            {game.reviews.length > 0 
-             ? 
-             <>
-             {game.reviews.map((review, index) => {
+            {game.reviews.length > 0
+              ?
               <>
-              <p key={index}>{review.review}</p>
+                {game.reviews.map((review, index) => {
+                    const stars = []
+                  {
+                    for (let i = 0; i < review.rating; i++) {
+                      stars.push("⭐")
+                    }
+                  }
+                  return <div key={index}>
+                    <div className='flex flex-row'>
+                      {stars.map((star) => <p key={index}>{star}</p>)}
+                    </div>
+                    <p>{review.review}</p>
+                    <div className='flex flex-row justify-between mr-8'>
+                      {(user && (user._id === review.addedBy)) && <>
+                        <button className='mt-6 mb-1 border-teal-900 border-2 w-fit py-1 px-3 rounded-lg self-center text-96 bg-teal-400' onClick={(event) => {
+                          setEditMode(!editMode)
+                          !editMode ? event.target.innerHTML = "Confirm" : event.target.innerHTML = "Edit"
+                        }
+                        }>
+                          Edit
+                        </button>
+                        <button className='mt-6 mb-1 border-teal-900 border-2 w-fit py-1 px-3 rounded-lg self-center text-96 bg-teal-400'>Delete</button>
+                      </>}
+                    </div>
+                  </div>
+                })
+                }
               </>
-              })}
-             </>
-             : <p>Nobody's written a review for this game yet... fancy being the first?</p>
+              : <p>Nobody's written a review for this game yet... fancy being the first?</p>
             }
           </div>
           <div className='object-center w-fit bg-blue-100 m-5 p-5 rounded-xl border-4 border-blue-900'>
             {isLoggedIn
-            ? <>
-            <h1 className='text-left font-bold text-5xl mb-5'>Add a review</h1>
-            <form className='flex flex-col' onSubmit={postReview}>
-              <div className='mb-5'>
-              <label htmlFor='rating' className='text-2xl'>Rating: </label>
-              <input type='button' name='rating' id='1' value=" ⭐" required className='cursor-pointer text-4xl opacity-40' key="1" onClick={changeRating}/>
-              <input type='button' name='rating' id='2' value="⭐" required className='cursor-pointer text-4xl opacity-40' key="2" onClick={changeRating}/>
-              <input type='button' name='rating' id='3' value="⭐" required className='cursor-pointer text-4xl opacity-40' key="3" onClick={changeRating}/>
-              <input type='button' name='rating' id='4' value="⭐" required className='cursor-pointer text-4xl opacity-40' key="4" onClick={changeRating}/>
-              <input type='button' name='rating' id='5' value="⭐" required className='cursor-pointer text-4xl opacity-40' key="5" onClick={changeRating}/>
-              </div>
-              <label htmlFor='review' className='text-2xl mb-2'>Review: </label>
-              <textarea name='review' id='review' rows="9" cols="50" onChange={handleChange} className='p-2 border-blue-900 border-2 rounded-xl bg-gray-100'/>
-              <div className='flex justify-center items-center'>
-                <button className='mt-6 mb-1 border-blue-900 border-4 w-fit py-3 px-6 rounded-lg self-center text-xl bg-blue-400'>Submit</button>
-              </div>
-            </form>
-            </>
-            : <>
-            <h1 className='text-left font-bold text-5xl mb-5'>Add a re- wait a minute!</h1>
-            <p>You're not signed in... change that <Link to="/login" className='text-blue-600 underline'>here</Link>, or sign up <Link to="/signup" className='text-blue-600 underline'>here</Link>!</p>
-            </>
+              ? <>
+                <h1 className='text-left font-bold text-5xl mb-5'>Add a review</h1>
+                <form className='flex flex-col' onSubmit={postReview}>
+                  <div className='mb-5'>
+                    <label htmlFor='rating' className='text-2xl'>Rating: </label>
+                    <input type='button' name='rating' id='1' value=" ⭐" required className='cursor-pointer text-4xl opacity-40' key="1" onClick={changeRating} />
+                    <input type='button' name='rating' id='2' value="⭐" required className='cursor-pointer text-4xl opacity-40' key="2" onClick={changeRating} />
+                    <input type='button' name='rating' id='3' value="⭐" required className='cursor-pointer text-4xl opacity-40' key="3" onClick={changeRating} />
+                    <input type='button' name='rating' id='4' value="⭐" required className='cursor-pointer text-4xl opacity-40' key="4" onClick={changeRating} />
+                    <input type='button' name='rating' id='5' value="⭐" required className='cursor-pointer text-4xl opacity-40' key="5" onClick={changeRating} />
+                  </div>
+                  <label htmlFor='review' className='text-2xl mb-2'>Review: </label>
+                  <textarea name='review' id='review' rows="9" cols="50" onChange={handleChange} className='p-2 border-blue-900 border-2 rounded-xl bg-gray-100' />
+                  <div className='flex justify-center items-center'>
+                    <button className='mt-6 mb-1 border-blue-900 border-4 w-fit py-3 px-6 rounded-lg self-center text-xl bg-blue-400'>Submit</button>
+                  </div>
+                </form>
+              </>
+              : <>
+                <h1 className='text-left font-bold text-5xl mb-5'>Add a re- wait a minute!</h1>
+                <p>You're not signed in... change that <Link to="/login" className='text-blue-600 underline'>here</Link>, or sign up <Link to="/signup" className='text-blue-600 underline'>here</Link>!</p>
+              </>
             }
           </div>
         </>
       }
     </>
   )
-
 }

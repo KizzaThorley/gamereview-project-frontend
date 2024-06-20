@@ -34,8 +34,8 @@ function App() {
       closeOnClick
       rtl={false}
       pauseOnFocusLoss={false}
-      draggable={false}
       pauseOnHover
+      draggable={false}
       theme="dark"
       transition: Slide
 />
