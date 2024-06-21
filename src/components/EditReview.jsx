@@ -1,6 +1,6 @@
-export default function EditReview({ postReview, changeRating, review, handleChange }) {
+export default function EditReview({ putReview, changeRating, review, handleChange }) {
     return (
-        <form className='flex flex-col' onSubmit={postReview}>
+        <form className='flex flex-col' onSubmit={putReview}>
             <div className='mb-5'>
                 <label htmlFor='rating' className='text-2xl'>Rating: </label>
                 {[1, 2, 3, 4, 5].map((num) => (
@@ -26,6 +26,7 @@ export default function EditReview({ postReview, changeRating, review, handleCha
                 onChange={handleChange}
                 className='p-2 border-blue-900 border-2 rounded-xl bg-gray-100'
             />
+            <button className='mt-6 mb-1 border-teal-900 border-2 w-fit py-1 px-3 rounded-lg self-center text-96 bg-teal-400' type="submit">Confirm</button>
         </form>
     )
 }

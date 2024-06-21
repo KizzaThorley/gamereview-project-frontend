@@ -82,6 +82,38 @@ export default function SingleGame({ isLoggedIn }) {
     }
   }
 
+  async function putReview(event) {
+    event.preventDefault()
+    try {
+      const { data } = await axios.put(`${baseUrl}/games/${gameId}/reviews/${review._id}`, review, {
+        headers: { Authorization: `Bearer ${isLoggedIn}` }
+      })
+      setEditMode(false)
+
+      setGame(data)
+    } catch (error) {
+      toast.error(error.response.data.message, {
+        autoClose: 3000,
+        transition: Slide
+      })
+    }
+  }
+
+  async function deleteReview(reviewId) {
+    try {
+      const { data } = await axios.delete(`${baseUrl}/games/${gameId}/reviews/${reviewId}/delete`, {
+        headers: { Authorization: `Bearer ${isLoggedIn}` }
+      })
+
+      setGame(data)
+    } catch (error) {
+      toast.error(error.response.data.message, {
+        autoClose: 3000,
+        transition: Slide
+      })
+    }
+  }
+
   async function reviewUserIDs() {
     await game?.reviews.map((review) => {
       return review.addedBy
@@ -149,25 +181,31 @@ export default function SingleGame({ isLoggedIn }) {
                                 {editMode && (
                                   <EditReview
                                     isLoggedIn={isLoggedIn}
-                                    postReview={postReview}
+                                    putReview={putReview}
                                     changeRating={changeRating}
                                     handleChange={handleChange}
                                     review={review}
+                                    editMode={editMode}
+                                    setEditMode={setEditMode}
                                   />
                                 )
                                 }
                               </div>
-                              <button
-                                className='mt-6 mb-1 border-teal-900 border-2 w-fit py-1 px-3 rounded-lg self-center text-96 bg-teal-400'
-                                onClick={(event) => {
-                                  setEditMode(!editMode)
-                                  event.target.innerHTML = editMode ? "Edit" : "Confirm"
-                                }}
-                              >
-                                Edit
-                              </button>
                               {!editMode && (
-                                <button className='mt-6 mb-1 border-teal-900 border-2 w-fit py-1 px-3 rounded-lg self-center text-96 bg-teal-400'>
+                                <button
+                                  className='mt-6 mb-1 border-teal-900 border-2 w-fit py-1 px-3 rounded-lg self-center text-96 bg-teal-400'
+
+                                  onClick={() => {
+                                    setEditMode(!editMode)
+                                    setReview(review)
+                                  }}
+                                >
+                                  Edit
+                                </button>
+                              )
+                              }
+                              {!editMode && (
+                                <button className='mt-6 mb-1 border-teal-900 border-2 w-fit py-1 px-3 rounded-lg self-center text-96 bg-teal-400' onClick={() => {deleteReview(review._id)}}>
                                   Delete
                                 </button>
                               )}
