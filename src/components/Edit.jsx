@@ -44,7 +44,7 @@ export default function Edit() {
 
   async function getGenres() {
     try {
-      const { data } = await axios.get(`${baseUrl}genres`)
+      const { data } = await axios.get(`${baseUrl}/genres`)
       let genreDataSelect = data.map((genre) => {
         return { value: genre.name, label: genre.name }
       })
@@ -97,6 +97,7 @@ export default function Edit() {
     setFormData(newFormData)
   }
 
+  console.log(genreData);
   return (
     <div className='container mx-auto px-4 md:container md:mx-auto'>
       <h1 className='text-xl font-bold text-red-500'>Add a game</h1>
