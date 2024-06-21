@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { Link, } from 'react-router-dom'
 import GameCard from './GameCard'
 import { toast } from 'react-toastify'
+import { baseUrl } from '../config'
 
 export default function MyGames() {
 
@@ -14,7 +15,7 @@ export default function MyGames() {
   async function fetchMyGames() {
     try {
       const token = localStorage.getItem('token')
-      const { data } = await axios.get('/api/my-games', {
+      const { data } = await axios.get(`${baseUrl}/my-games`, {
         headers: { Authorization: `Bearer ${token}` }
       })
       setUsersGames(data)
@@ -32,7 +33,7 @@ export default function MyGames() {
   async function handleDelete(gameId) {
     try {
       const token = localStorage.getItem('token')
-      const { data } = await axios.delete(`/api/games/${gameId}`, {
+      const { data } = await axios.delete(`${baseUrl}/games/${gameId}`, {
         headers: { Authorization: `Bearer ${token}` }
       })
       console.log(data);

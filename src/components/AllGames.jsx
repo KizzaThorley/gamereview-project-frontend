@@ -3,6 +3,7 @@ import axios from "axios"
 import GameCard from './GameCard'
 import { toast } from 'react-toastify'
 import Select from 'react-select'
+import { baseUrl } from '../config'
 
 export default function AllGames() {
 
@@ -14,7 +15,7 @@ export default function AllGames() {
 
 
   async function getGames() {
-    const games = await axios.get("/api/games")
+    const games = await axios.get(`${baseUrl}/games`)
 
     return setAllGames(games.data)
   }
@@ -26,7 +27,7 @@ export default function AllGames() {
 
   async function getGenres() {
     try {
-      const { data } = await axios.get("/api/genres")
+      const { data } = await axios.get(`${baseUrl}/genres`)
       let genreDataSelect = data.map((genre) => {
         return { value: genre.name, label: genre.name }
       })

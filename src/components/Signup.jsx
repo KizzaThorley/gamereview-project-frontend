@@ -2,6 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { Slide, toast } from 'react-toastify'
+import { baseUrl } from '../config'
 
 export default function Signup() {
 
@@ -23,7 +24,7 @@ export default function Signup() {
     async function onFormSubmit(e) {
         e.preventDefault()
         try {
-            await axios.post('/api/signup', formData)
+            await axios.post(`${baseUrl}/signup`, formData)
 
             navigate('/login')
         } catch (error) {

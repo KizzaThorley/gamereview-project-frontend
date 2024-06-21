@@ -2,6 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { Slide, toast } from 'react-toastify'
+import { baseUrl } from '../config'
 
 
 export default function Login({ setIsLoggedIn }) {
@@ -23,7 +24,7 @@ export default function Login({ setIsLoggedIn }) {
   async function onFormSubmit(e) {
     e.preventDefault()
     try {
-      const { data } = await axios.post('/api/login', formData)
+      const { data } = await axios.post(`${baseUrl}/login`, formData)
 
       const token = data.token
 

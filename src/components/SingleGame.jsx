@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import { Slide, toast } from 'react-toastify'
 import ReviewCard from './ReviewCard'
 import EditReview from './EditReview'
+import { baseUrl } from '../config'
 
 export default function SingleGame({ isLoggedIn }) {
   const { gameId } = useParams()
@@ -29,7 +30,7 @@ export default function SingleGame({ isLoggedIn }) {
 
   async function getGame() {
     try {
-      const { data } = await axios.get(`/api/games/${gameId}`)
+      const { data } = await axios.get(`${baseUrl}/games/${gameId}`)
       // console.log(data)
       setGame(data)
     } catch (error) {
@@ -67,7 +68,7 @@ export default function SingleGame({ isLoggedIn }) {
     event.preventDefault()
 
     try {
-      const { data } = await axios.post(`/api/games/${gameId}/reviews`, review, {
+      const { data } = await axios.post(`${baseUrl}/games/${gameId}/reviews`, review, {
         headers: { Authorization: `Bearer ${isLoggedIn}` }
       })
 

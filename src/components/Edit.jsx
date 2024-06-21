@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useNavigate, useParams } from 'react-router-dom'
 import Select from 'react-select';
 import { toast } from 'react-toastify';
+import { baseUrl } from '../config';
 
 
 
@@ -22,7 +23,7 @@ export default function Edit() {
 
   
       const token = localStorage.getItem('token')
-      await axios.put(`/api/games/${gameId}`, newFormData, {
+      await axios.put(`${baseUrl}/games/${gameId}`, newFormData, {
         headers: { Authorization: `Bearer ${token}` }
       })
 
@@ -43,7 +44,7 @@ export default function Edit() {
 
   async function getGenres() {
     try {
-      const { data } = await axios.get("/api/genres")
+      const { data } = await axios.get(`${baseUrl}genres`)
       let genreDataSelect = data.map((genre) => {
         return { value: genre.name, label: genre.name }
       })
@@ -56,7 +57,7 @@ export default function Edit() {
 
   async function getGame() {
     try {
-      const { data } = await axios.get(`/api/games/${gameId}`)
+      const { data } = await axios.get(`${baseUrl}/games/${gameId}`)
       const newFormData = structuredClone(formData)
       newFormData.name = data.name
       newFormData.year = data.year
