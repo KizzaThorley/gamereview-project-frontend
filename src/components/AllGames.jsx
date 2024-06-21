@@ -62,8 +62,9 @@ export default function AllGames() {
 
   return (
     <>
-
-      <h1 className='text-center font-bold text-5xl mt-4'>All Games</h1>
+<div className='mx-auto mt-5 w-fit py-2 px-9 just-a-border text-center bg-slate-700 rounded-lg'>
+      <h1 className='text-center font-bold text-5xl text-white'>All Games</h1>
+</div>
       <div className='flex flex-wrap items-center gap-5 justify-center py-12 mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 '>
 
       <input className="placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 
