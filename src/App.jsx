@@ -22,6 +22,8 @@ function App() {
 
 
   return <Router>
+    <div className="bg-auto h-full bg-[url('https://cdn1.vectorstock.com/i/1000x1000/78/95/seamless-pattern-gamepad-controller-vector-44767895.jpg')]">
+
     <NavBar 
     isLoggedIn={isLoggedIn}
     setIsLoggedIn={setIsLoggedIn}
@@ -47,7 +49,7 @@ function App() {
       />} />
       <Route path="/login" element={<Login 
           setIsLoggedIn={setIsLoggedIn}
-      />} />
+          />} />
       <Route path='/new-game' element={<New />} />
       <Route path='/my-games' element={<MyGames />} />
       <Route path='/my-games/edit/:gameId' element={<Edit />} />
@@ -57,6 +59,7 @@ function App() {
       />} />
     </Routes>
 
+      </div>
   </Router>
 }
 
