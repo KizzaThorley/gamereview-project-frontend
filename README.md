@@ -1,53 +1,74 @@
 # Project Title
 
 ## Description
-Here, give a short description of the project. It can be a couple of sentences where you discuss the point in time during the course that you completed it, the topic of the project and potentially the tech stack.
-
-**Insert your Description here:**
+**This Was a MERN stack group porject during our general assembly bootcamp<br>This is a CRUD aplication that allows users to add their favorite videogames and allows our users to colectivly review and rate the games and interact which each one.**
 
 ---
 
 ## Deployment Link
-Here include the information on where the deployed project can be found. If login details are needed to access the full project, make sure you include them.
 
-**Insert your Deployment link here:**
-
+-[Deployment Link](https://joystickipedia.netlify.app/)
 ---
 
 ## Getting Started/Code Installation
 Explain how the reader accesses your code. Include a step by step approach.
 
-**Insert your Getting Started/Code Installation here:**
-
+**Insert code bellow in a .env file npm i and run the application:**
+``` js 
+SECRET_PASSWORD=
+MONGODB_URI=
+PORT=
+adminPassword=
+```
+make sure both the front end and backend repos have been forked or cloned 
+in the front end .env include a 
+``` jsx 
+VITE_APP_URL=
+```
+ - Your ready to go
 ---
 
-## Timeframe & Working Team (Solo/Pair/Group)
-Share the timeframe given for the project and whether you worked independently, in a pair, or in a group. If you worked in a pair or group, include the names of the people you collaborated with. As a bonus, you can also provide links to their GitHub repo.
+## Timeframe & Working Team (Pair)
 
-**Insert your Timeframe & Working Team here:**
+**This was a 7 day project complete in a pair with both contributers links bellow**
+
+[Kieran](https://github.com/KizzaThorley)
+[Tawheed](https://github.com/TawheedAhmed28)
 
 ---
 
 ## Technologies Used
-List every technology you used to complete the project. This can be in one long list, or broken down into categories (Back End, Front End, Development Tools).
 
 **Insert your Technologies Used here:**
 
----
+#### Back-end
+- JavaScrip
+- Node
+- MongoDB
+- mongoose 
+- jwt
+- bcrypt
+- cors
+- netlify
+- express 
 
-## Brief
-Include the brief set by your instructional team here. This sets the context of the project you were working towards and mimics briefs you will be set later in your future roles. This can either be in bullets or in a paragraph.
-
-**Insert your Brief here:**
+#### Front-end
+- JavaScript
+- React
+- CSS
+- HTML
+- React Select
+- React Toastify
+- Tailwindcss
+- netlify 
 
 ---
 
 ## Planning
-The planning stage is important, as all projects in your future roles will have detailed plans before any coding happens. It is a great experience to share with potential engineer employers, as this reflects real engineering team practices. 
+**We planned this project using a trello board and did regular standups and pair coding during points where we felt both contributers input was needed.:**
 
-Discuss every step you took in the planning stage, including the relevant images. This includes sketches, wireframes, ERDs, project management tools, pseudocode, and task allocation if it was a group or pair project.
+[trello Board](https://trello.com/b/3e8WFnCV/tawheed-kieran-project-3)
 
-**Insert your Planning here:**
 
 ---
 
@@ -65,27 +86,12 @@ Challenges are great for showing your learning journey and problem solving. Deta
 
 ---
 
-## Wins
-The Wins section is your opportunity to highlight the aspects of your project you are most proud of. Discuss interesting problem solving you did, strong sections of code, collaboration with other team members, and visual design of the project.
-
-**Insert your Wins here:**
-
----
-
 ## Key Learnings/Takeaways
 This section helps to differentiate each of you from your classmates and team members. Discuss what you learned from each project and how it has shaped you as an engineer. Include technologies/tools you feel more confident with and engineering processes you became more comfortable with.
 
 **Insert your Key Learnings/Takeaways here:**
 
 ---
-
-## Bugs
-If you have any bugs in your project, it’s important that you flag them in your ReadMe. Explain what the bugs are. If you have no bugs, you can leave this section blank.
-
-**Insert your Bugs here:**
-
----
-
 ## Future Improvements
 Detail any ideas you have on what you would do if you had more time, as well as how you might improve the project.
 
