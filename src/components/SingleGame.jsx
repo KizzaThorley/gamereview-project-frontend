@@ -135,13 +135,14 @@ export default function SingleGame({ isLoggedIn }) {
   }
 
   return (
-    <>
+    <div className='flex mx-auto mt-5 md:container px-10 sm:px-6 lg:px-0 p-6 text-center items-center justify-center'>
+     <div className='text-center items-center justify-center' >
       {!game ? (
-        <h1 className='text-left font-bold text-5xl mt-5 ml-5'>Loading...</h1>
+        <h1 className='text-center font-bold text-5xl mt-5 ml-5'>Loading...</h1>
       ) : (
         <>
           <div className='object-center w-fit bg-green-100 m-5 p-5 rounded-xl border-4 border-green-900'>
-            <h1 className='text-left font-bold text-5xl mb-5 uppercase'>{game.name} ({game.year})</h1>
+            <h1 className='text-center font-bold text-5xl mb-5 uppercase'>{game.name} ({game.year})</h1>
             <div className="object-center flex justify-center">
               {game.imageUrl && (
                 <img src={game.imageUrl} className='min-w-96 max-w-3xl border-teal-900 rounded-xl border-2 mb-2' />
@@ -159,7 +160,7 @@ export default function SingleGame({ isLoggedIn }) {
             </p>
           </div>
           <div className='object-center w-fit bg-teal-100 m-5 p-5 rounded-xl border-4 border-teal-800 flex-col'>
-            <h1 className="text-left font-bold text-5xl mb-5">Reviews</h1>
+            <h1 className="text-center font-bold text-5xl mb-5">Reviews</h1>
             {game.reviews.length > 0 ? (
               <>
                 {game.reviews.map((review, index) => {
@@ -174,7 +175,7 @@ export default function SingleGame({ isLoggedIn }) {
                           {!editMode && <div className='flex flex-row'>
                             {stars.map((star, index) => <p key={"star" + index}>{star}</p>)}
                           </div>}
-                          {!editMode && <p>{review.review}</p>}
+                          {!editMode && <p className='text-left'>{review.review}</p>}
                           <div className='flex flex-column justify-between mr-8 mb-6'>
                             <>
                               <div>
@@ -191,6 +192,7 @@ export default function SingleGame({ isLoggedIn }) {
                                 )
                                 }
                               </div>
+                              <div className='w-full place-content-center'>
                               {!editMode && (
                                 <button
                                   className='mt-6 mb-1 border-teal-900 border-2 w-fit py-1 px-3 rounded-lg self-center text-96 bg-teal-400'
@@ -209,6 +211,7 @@ export default function SingleGame({ isLoggedIn }) {
                                   Delete
                                 </button>
                               )}
+                              </div>
                             </>
                           </div>
                         </>
@@ -218,7 +221,7 @@ export default function SingleGame({ isLoggedIn }) {
                           <div className='flex flex-row'>
                             {!editMode && stars.map((star, index) => <p key={"star" + index}>{star}</p>)}
                           </div>
-                          <p>{!editMode && review.review}</p>
+                          <p className='text-left mb-8'>{!editMode && review.review}</p>
                         </>
 
                       )}
@@ -230,8 +233,9 @@ export default function SingleGame({ isLoggedIn }) {
               <p>Nobody's written a review for this game yet... fancy being the first?</p>
             )}
           </div>
-          {game.reviews.length > 0 && (searchReviews()) ? <p className="text-2xl ml-5 font-bold">You've already reviewed this. Edit it above!</p>
-            :
+          {game.reviews.length > 0 && (searchReviews()) ? (
+          <p className="text-2xl ml-5 font-bold text-center py-1 px-2 text-white font-bold bg-slate-700 rounded-lg w-fit">You've already reviewed this. Edit it above!</p>
+          ) :
             <ReviewCard
               isLoggedIn={isLoggedIn}
               postReview={postReview}
@@ -242,7 +246,8 @@ export default function SingleGame({ isLoggedIn }) {
           }
         </>
       )}
-    </>
+      </div>
+    </div>
   )
 }
 

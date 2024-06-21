@@ -22,7 +22,7 @@ function App() {
 
 
   return <Router>
-    <div className="bg-auto h-full bg-[url('https://cdn1.vectorstock.com/i/1000x1000/78/95/seamless-pattern-gamepad-controller-vector-44767895.jpg')]">
+    <div className="bg-auto h-full bg-[url('https://i.imgur.com/8UznZXg.jpeg')]">
 
     <NavBar 
     isLoggedIn={isLoggedIn}
