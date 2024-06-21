@@ -1,13 +1,12 @@
 import React from 'react'
 import axios from 'axios'
-import { useParams, Link, useNavigate } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { Slide, toast } from 'react-toastify'
 import ReviewCard from './ReviewCard'
 import EditReview from './EditReview'
 
 export default function SingleGame({ isLoggedIn }) {
   const { gameId } = useParams()
-  const navigate = useNavigate()
   const [game, setGame] = React.useState(null)
   const [editMode, setEditMode] = React.useState(false)
   const [review, setReview] = React.useState({
@@ -16,17 +15,17 @@ export default function SingleGame({ isLoggedIn }) {
     addedBy: ""
   })
 
-  const  [user , setUser] = React.useState(null)  
+  const [user, setUser] = React.useState(null)
 
- React.useEffect(() => {
-  if(!isLoggedIn) {
-    return setUser(false)
-  } else {
-    setUser(JSON.parse(atob(isLoggedIn.split(".")[1])))
-  }
- },[isLoggedIn])
-  
-  
+  React.useEffect(() => {
+    if (!isLoggedIn) {
+      return setUser(false)
+    } else {
+      setUser(JSON.parse(atob(isLoggedIn.split(".")[1])))
+    }
+  }, [isLoggedIn])
+
+
 
   async function getGame() {
     try {
@@ -66,10 +65,13 @@ export default function SingleGame({ isLoggedIn }) {
 
   async function postReview(event) {
     event.preventDefault()
+
     try {
       const { data } = await axios.post(`/api/games/${gameId}/reviews`, review, {
         headers: { Authorization: `Bearer ${isLoggedIn}` }
       })
+
+
       setGame(data)
     } catch (error) {
       toast.error(error.response.data.message, {
@@ -81,7 +83,7 @@ export default function SingleGame({ isLoggedIn }) {
 
   async function reviewUserIDs() {
     await game?.reviews.map((review) => {
-       return review.addedBy
+      return review.addedBy
     })
   }
 
@@ -89,17 +91,15 @@ export default function SingleGame({ isLoggedIn }) {
 
   function searchReviews() {
     if (!user) {
-      return 
+      return
     } else {
       return game.reviews.some((review) => {
-        if(review.addedBy.includes(user._id.toString())) {
-         return true
+        if (review.addedBy.includes(user._id.toString())) {
+          return true
         }
-       })
+      })
     }
-}
-
-  // const hasReviewed = searchReviews()
+  }
 
   return (
     <>
