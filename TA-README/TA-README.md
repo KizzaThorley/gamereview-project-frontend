@@ -26,7 +26,13 @@
 
 ### Brief
 
-To create a MERN stack app with CRUD functionality, on a topic of our choosing, with at least three data models relating to one another. Kieran and I decided on a theme of games.
+- Back end is Express + Node, front end is React.
+- Use MongoDB as your database management system.
+- Use JWT token-based authentication for users, for both back end and front end.
+- Including the user model, have at least three models, with at least one relating to the user.
+- Back end and front end have full CRUD functionality.
+- Any required secret keys must be obtained from the back end application, and must **not** be accessible fron the front end application.
+- Deploy your app online for others to use.
 
 ---
 
