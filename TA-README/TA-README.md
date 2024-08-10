@@ -38,6 +38,8 @@
 
 ### Code installation
 
+Run `npm i` to install dependencies.
+
 Go to [MongoDB](https://cloud.mongodb.com/) and create a database.
 
 In your back end, create a `.env` file and add the following variables:
