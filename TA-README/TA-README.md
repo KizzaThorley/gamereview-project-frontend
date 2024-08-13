@@ -235,6 +235,14 @@ Adding back the `opacity-40` class every time a star was clicked was necessary, 
 
 ---
 
+### Wins
+
+**Conditional styling** - on reviews! Changing opacity of the stars based on your rating, as well as assigning a value to each star was difficult to get working in tandem with each other. I'm really happy to be able to figure it out, as I've seen this feature on countless websites and wanted to do it myself!
+
+**React** - it was new to me, and very versatile, so there was a lot to learn. I'm just happy with the fact that I powered through and learned how to use it, as sometimes it can be easy to get overwhelmed if you're not careful. One step at a time!
+
+---
+
 ### Key learnings
 
 This was my first experience with pair programming, and in turn, merge conflicts and pulling GitHub repositories. I got to practice communication skills here to make sure I never conflicted with Kieran, and if I did, we would talk through it together and work something out. The experience was fascinating for me, as I find it interesting to see how others would solve a coding problem, whether that be to pinch ideas, or to reassure myself that my methods are good!
